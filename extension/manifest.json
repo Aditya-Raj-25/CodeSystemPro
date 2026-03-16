@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "CodeTrackr Sync Pro",
+    "version": "1.0",
+    "description": "Automatically sync accepted submissions from LeetCode, Codeforces, GFG, and CodeChef to GitHub.",
+    "permissions": [
+        "storage",
+        "declarativeContent",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://*.leetcode.com/*",
+        "https://*.codeforces.com/*",
+        "https://*.geeksforgeeks.org/*",
+        "https://*.codechef.com/*",
+        "http://localhost:8080/*",
+        "http://localhost:5173/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://leetcode.com/problems/*",
+                "https://leetcode.com/submissions/detail/*",
+                "https://leetcode.com/submissions/*",
+                "https://*.codeforces.com/contest/*/submission/*",
+                "https://*.codeforces.com/submission/*",
+                "https://*.geeksforgeeks.org/problems/*",
+                "https://www.codechef.com/viewsolution/*",
+                "http://localhost:5173/*"
+            ],
+            "js": [
+                "content_script.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    }
+}

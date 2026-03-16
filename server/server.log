@@ -1,0 +1,9 @@
+
+> server@1.0.0 dev
+> node index.js
+
+[dotenv@17.3.1] injecting env (6) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+Cron jobs initialized: syncing every 5 minutes.
+MongoDB Connected manually
+Server started on port 8080
