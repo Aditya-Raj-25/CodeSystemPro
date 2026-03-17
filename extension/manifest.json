@@ -13,8 +13,9 @@
         "https://*.codeforces.com/*",
         "https://*.geeksforgeeks.org/*",
         "https://*.codechef.com/*",
-        "https://party-5ebj.onrender.com/*",
-        "https://party-five-black.vercel.app/*"
+        "*://party-5ebj.onrender.com/*",
+        "*://party-five-black.vercel.app/*",
+        "https://*.onrender.com/*"
     ],
     "background": {
         "service_worker": "background.js"
