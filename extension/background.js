@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             console.log('Intercepted successful submission:', request.data);
 
-            fetch('http://localhost:8080/api/sync', {
+            fetch('https://party-5ebj.onrender.com/api/sync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const fixPendingSubmissions = async () => {
         if (!token) return; // Not logged in
 
         // 1. Get list of pending submissions
-        const pendingRes = await fetch('http://localhost:8080/api/sync/pending-leetcode', {
+        const pendingRes = await fetch('https://party-5ebj.onrender.com/api/sync/pending-leetcode', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!pendingRes.ok) return;
@@ -82,7 +82,7 @@ const fixPendingSubmissions = async () => {
                 console.log(`[CodeTrackr BG] Got code for "${sub.problemName}", pushing to server...`);
 
                 // 3. POST the code back to our sync endpoint
-                const syncRes = await fetch('http://localhost:8080/api/sync', {
+                const syncRes = await fetch('https://party-5ebj.onrender.com/api/sync', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

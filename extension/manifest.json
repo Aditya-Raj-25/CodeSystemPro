@@ -13,8 +13,8 @@
         "https://*.codeforces.com/*",
         "https://*.geeksforgeeks.org/*",
         "https://*.codechef.com/*",
-        "http://localhost:8080/*",
-        "http://localhost:5173/*"
+        "https://party-5ebj.onrender.com/*",
+        "https://party-five-black.vercel.app/*"
     ],
     "background": {
         "service_worker": "background.js"
@@ -29,7 +29,7 @@
                 "https://*.codeforces.com/submission/*",
                 "https://*.geeksforgeeks.org/problems/*",
                 "https://www.codechef.com/viewsolution/*",
-                "http://localhost:5173/*"
+                "https://party-five-black.vercel.app/*"
             ],
             "js": [
                 "content_script.js"

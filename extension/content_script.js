@@ -233,7 +233,7 @@ const processCodeforces = () => {
 const init = () => {
     const host = window.location.hostname;
 
-    if (host === 'localhost') {
+    if (host === 'localhost' || host === 'party-five-black.vercel.app') {
         window.addEventListener('message', (event) => {
             if (event.source !== window || !event.data || event.data.type !== 'CODE_TRACKR_SET_TOKEN') return;
             const token = event.data.token;

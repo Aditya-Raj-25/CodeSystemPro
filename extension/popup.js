@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('dashboard-btn')?.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'http://localhost:5173' });
+        chrome.tabs.create({ url: 'https://party-five-black.vercel.app' });
     });
 
     document.getElementById('login-btn')?.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'http://localhost:5173/login' });
+        chrome.tabs.create({ url: 'https://party-five-black.vercel.app/login' });
     });
 });
