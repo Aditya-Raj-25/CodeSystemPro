@@ -43,7 +43,7 @@ const Settings = () => {
         setMessage({ type: '', text: '' });
 
         try {
-            await axios.put('http://localhost:8080/api/auth/settings', {
+            await axios.put(`${API_URL}/api/auth/settings`, {
                 githubUsername: formData.githubUsername,
                 githubRepo: formData.githubRepo,
                 githubToken: formData.githubToken || undefined,
