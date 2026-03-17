@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: party-server
+    env: docker
+    dockerContext: server
+    dockerfilePath: server/Dockerfile
+    plan: free
+    region: oregon # or your preferred region
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # User needs to provide this in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_PASS
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
