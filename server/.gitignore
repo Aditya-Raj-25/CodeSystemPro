@@ -1,5 +1,6 @@
-.env
+node_modules
 node_modules/.cache
+.env
 .env.local
 .env.example
 *.log
