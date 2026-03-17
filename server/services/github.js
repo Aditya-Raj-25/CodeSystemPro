@@ -79,29 +79,31 @@ const pushToGitHub = async (userId, submission) => {
             console.log(`[GitHub] Uploading file to: ${githubApiUrl}`);
             let sha = undefined;
             try {
-                const fileRes = await axios.get(githubApiUrl, {
-                    headers
-                });
-                sha = fileRes.data.sha;
-            } catch (e) {
-                if (e.response && e.response.status !== 404) {
-                    console.warn(`[GitHub] File check error for ${filePath}: ${e.message}`);
-                }
-            }
-
-            const payload = {
-                message,
-                content,
-                ...(sha && { sha })
-            };
-
-            const res = await axios.put(githubApiUrl, payload, {
-                headers: {
-                    ...headers,
-                    'Content-Type': 'application/json'
-                }
+            const fileRes = await axios.get(githubApiUrl, {
+                headers,
+                timeout: 10000
             });
-            return res;
+            sha = fileRes.data.sha;
+        } catch (e) {
+            if (e.response && e.response.status !== 404) {
+                console.warn(`[GitHub] File check error for ${filePath}: ${e.message}`);
+            }
+        }
+
+        const payload = {
+            message,
+            content,
+            ...(sha && { sha })
+        };
+
+        const res = await axios.put(githubApiUrl, payload, {
+            headers: {
+                ...headers,
+                'Content-Type': 'application/json'
+            },
+            timeout: 15000
+        });
+        return res;
         };
 
         const res = await uploadFile(readmePath, readmeContent, readmeMessage);

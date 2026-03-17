@@ -105,9 +105,9 @@ router.post('/', auth, async (req, res) => {
                 if (submissionId) existing.submissionId = submissionId;
                 if (language) existing.language = language;
 
-                await pushToGitHub(req.user.id, existing);
+                pushToGitHub(req.user.id, existing).catch(err => console.error('[BG Update Push] Error:', err.message));
                 await existing.save();
-                return res.status(200).json({ message: 'Submission updated with code', submission: existing });
+                return res.status(200).json({ message: 'Submission update initiated', submission: existing });
             }
             return res.status(200).json({ message: 'Submission already exists', submission: existing });
         }
@@ -122,12 +122,14 @@ router.post('/', auth, async (req, res) => {
         });
         submission.code = code;
 
-        // Push to github
-        await pushToGitHub(req.user.id, submission);
+        // Fire and forget push to GitHub (don't await)
+        pushToGitHub(req.user.id, submission).catch(pushErr => {
+            console.error(`[BG Push] Failed for "${problemName}":`, pushErr.message);
+        });
 
         // Save to DB
         await submission.save();
-        res.json({ message: 'Synced successfully', submission });
+        res.json({ message: 'Sync initiated', submission });
     } catch (err) {
         console.error('API Sync Error:', err.message);
         res.status(500).send('Server Error');
