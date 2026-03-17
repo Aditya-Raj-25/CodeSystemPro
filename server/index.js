@@ -24,24 +24,32 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 // Connect to MongoDB
 const connectDB = async () => {
     try {
-        let uri = process.env.MONGO_URI;
+        const uri = process.env.MONGO_URI;
+        if (!uri && process.env.NODE_ENV === 'production') {
+            throw new Error('MONGO_URI is missing in production environment');
+        }
 
         try {
-            // First try to connect to the standard local URI or Atlas URI provided
+            if (!uri) throw new Error('No MONGO_URI provided');
             await mongoose.connect(uri);
-            console.log('MongoDB Connected manually');
+            console.log('MongoDB Connected successfully');
         } catch (initialErr) {
+            if (process.env.NODE_ENV === 'production') {
+                console.error('MongoDB connection failed in production:', initialErr.message);
+                process.exit(1);
+            }
+            
             console.log('Local MongoDB failed, starting In-Memory MongoDB Server instead...');
-            // Fallback to memory server if local install fails (like Xcode brew issues)
             const mongoServer = await MongoMemoryServer.create();
-            uri = mongoServer.getUri();
-            await mongoose.connect(uri);
+            const memoryUri = mongoServer.getUri();
+            await mongoose.connect(memoryUri);
             console.log('MongoDB In-Memory Server Connected');
         }
 
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
     } catch (err) {
-        console.error('MongoDB connection error', err);
+        console.error('SERVER FATAL ERROR:', err.message);
+        process.exit(1);
     }
 };
 

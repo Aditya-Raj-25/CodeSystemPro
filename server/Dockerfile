@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     libpango-1.0-0 \
     libcups2 \
+    libcurl4 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
