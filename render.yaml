@@ -25,3 +25,17 @@ services:
         sync: false
       - key: ENCRYPTION_KEY
         sync: false
+
+  - type: web
+    name: party-client
+    env: static
+    buildCommand: npm install && npm run build
+    publishDir: client/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: party-server
+          property: host
+      - key: VITE_GOOGLE_CLIENT_ID
+        sync: false

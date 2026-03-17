@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ExternalLink, Filter } from 'lucide-react';
+import { API_URL } from '../config';
 
 const Repositories = () => {
     const [submissions, setSubmissions] = useState([]);
@@ -10,7 +11,7 @@ const Repositories = () => {
     useEffect(() => {
         const fetchSubmissions = async () => {
             try {
-                const res = await axios.get('http://localhost:8080/api/sync/submissions');
+                const res = await axios.get(`${API_URL}/api/sync/submissions`);
                 setSubmissions(res.data);
             } catch (err) {
                 console.error(err);

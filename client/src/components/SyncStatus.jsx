@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ExternalLink, CheckCircle, RefreshCw, XCircle, Clock } from 'lucide-react';
+import { API_URL } from '../config';
 
 const SyncStatus = () => {
     const [submissions, setSubmissions] = useState([]);
@@ -9,7 +10,7 @@ const SyncStatus = () => {
     useEffect(() => {
         const fetchSubmissions = async () => {
             try {
-                const res = await axios.get('http://localhost:8080/api/sync/submissions');
+                const res = await axios.get(`${API_URL}/api/sync/submissions`);
                 setSubmissions(res.data);
             } catch (err) {
                 console.error('Error fetching submissions', err);

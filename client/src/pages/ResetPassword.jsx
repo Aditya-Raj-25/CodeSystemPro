@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { API_URL } from '../config';
 
 const ResetPassword = () => {
     const { token } = useParams();
@@ -19,7 +20,7 @@ const ResetPassword = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post(`http://localhost:8080/api/auth/resetpassword/${token}`, { password });
+            const res = await axios.post(`${API_URL}/api/auth/resetpassword/${token}`, { password });
             toast.success(res.data.message || 'Password reset successfully');
             setSuccess(true);
             setTimeout(() => {

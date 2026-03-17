@@ -5,6 +5,7 @@ import PlatformCards from '../components/PlatformCards';
 import AnalyticsCharts from '../components/AnalyticsCharts';
 import SyncStatus from '../components/SyncStatus';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Dashboard = () => {
     const [isSyncing, setIsSyncing] = useState(false);
@@ -13,7 +14,7 @@ const Dashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const res = await axios.get('http://localhost:8080/api/sync/stats');
+            const res = await axios.get(`${API_URL}/api/sync/stats`);
             setStats(res.data);
         } catch (err) {
             console.error('Failed to fetch stats', err);
@@ -29,7 +30,7 @@ const Dashboard = () => {
     const handleSyncAll = async () => {
         setIsSyncing(true);
         try {
-            await axios.get('http://localhost:8080/api/sync/sync-all');
+            await axios.get(`${API_URL}/api/sync/sync-all`);
             await fetchStats(); // Refresh stats after sync
         } catch (err) {
             console.error('Manual sync failed', err);

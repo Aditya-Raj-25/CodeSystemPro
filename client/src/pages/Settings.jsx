@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { DownloadCloud, Trash2, LogOut, Save } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { API_URL } from '../config';
 
 const Settings = () => {
     const { user, fetchUser, logout } = useContext(AuthContext);

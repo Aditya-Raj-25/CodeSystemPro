@@ -3,6 +3,7 @@ import { RefreshCw, User, Settings, LogOut } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const Navbar = () => {
         setIsSyncing(true);
         try {
             // Need the full URL if trailing slash or relative path causes issues, but standard configuration works
-            await axios.get('http://localhost:8080/api/sync/sync-all');
+            await axios.get(`${API_URL}/api/sync/sync-all`);
             // Assuming we'd want to refresh some global state or window
             window.location.reload();
         } catch (err) {
