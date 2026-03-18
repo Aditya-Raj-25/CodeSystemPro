@@ -11,15 +11,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             console.log('Intercepted successful submission:', request.data);
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 20000);
+
             fetch('https://party-5ebj.onrender.com/api/sync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(request.data)
+                body: JSON.stringify(request.data),
+                signal: controller.signal
             })
                 .then(async response => {
+                    clearTimeout(timeoutId);
                     const data = await response.json();
                     if (response.ok) {
                         console.log('Submission synced successfully', data);
@@ -30,8 +35,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     }
                 })
                 .catch(error => {
+                    clearTimeout(timeoutId);
                     console.error('Error syncing submission:', error);
-                    sendResponse({ success: false, error: 'Cannot connect to server' });
+                    sendResponse({ success: false, error: error.name === 'AbortError' ? 'Sync timed out' : 'Cannot connect to server' });
                 });
         });
 
@@ -45,7 +51,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // This runs every 30 seconds. It:
 // 1. Asks the server for LeetCode submissions that have no code
 // 2. Fetches the actual code from LeetCode's API (using browser cookies)
-// 3. POSTs the code back to the server, which pushes it to GitHub
+// 3. POSTs the code back to the server, which initiates a background push to GitHub
 // =====================================================
 
 const fixPendingSubmissions = async () => {
