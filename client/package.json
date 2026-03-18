@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:extension": "bestzip public/CodeTrackrExtension.zip ../extension/*",
+    "build:extension": "rm -f public/CodeTrackrExtension.zip && cd ../extension && zip -r ../client/public/CodeTrackrExtension.zip . -x '*.DS_Store'",
     "prebuild": "npm run build:extension",
     "build": "vite build",
     "lint": "eslint .",
@@ -28,7 +28,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.24",
-    "bestzip": "^2.2.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
