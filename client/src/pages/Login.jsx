@@ -63,7 +63,7 @@ const Login = () => {
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
-                <div className="bg-sidebar py-8 px-4 shadow-2xl shadow-blue-900/10 sm:rounded-2xl sm:px-10 border border-border">
+                <div className="bg-sidebar py-8 px-4 shadow-2xl shadow-black/40 sm:rounded-2xl sm:px-10 border border-border">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         {error && <div className="text-red-400 text-sm bg-red-400/10 p-3 rounded-md border border-red-500/20">{error}</div>}
                         <div>
@@ -146,8 +146,7 @@ const Login = () => {
                 </div>
             </div>
 
-            {/* Decorative blurred blob */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
+            {/* Removed decorative blurred blob for professional look */}
         </div>
     );
 };
